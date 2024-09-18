@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Bluff Royale</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: black;
+      color: white;
+      overflow: hidden;
+    }
+
+    .montage-section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .montage-section .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .montage-content {
+      text-align: center;
+      z-index: 2;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .montage-content h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #ff4d4d;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .montage-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .montage-content .btn-primary {
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      background-color: #ff4d4d;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+
+    .montage-content .btn-primary:hover {
+      background-color: #ff6a6a;
+      transform: scale(1.1);
+    }
+
+    .section-must {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 4rem;
+      font-size: 1.4rem;
+    }
+
+    .montage-content .section-must img {
+      width: 60px;
+      height: 60px;
+      margin: 10px 0;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Montage Section -->
+  <div class="montage-section" style="background-image: url('https://source.unsplash.com/1600x900/?poker,casino'); background-size: cover; background-position: center;">
+    <div class="overlay"></div>
+    <div class="montage-content">
+      <h1>Welcome to Bluff Royale</h1>
+      <p>FaceTime Poker & Real-Money Sweepstakes</p>
+
+      <!-- Action Button -->
+      <a href="next-step.html">
+        <button class="btn btn-primary">Get Started</button>
+      </a>
+
+      <!-- Important Rules Section -->
+      <div class="section-must">
+        <p><img src="https://img.icons8.com/color/96/000000/camera.png" alt="camera icon"/> Camera must be on</p>
+        <p><img src="https://img.icons8.com/color/96/000000/microphone.png" alt="microphone icon"/> Microphone is required</p>
+        <p><img src="https://img.icons8.com/color/96/000000/poker.png" alt="poker icon"/> Play real money hands</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (Optional if you need Bootstrap functionality) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

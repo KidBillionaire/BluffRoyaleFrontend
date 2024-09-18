@@ -1,0 +1,16 @@
+/* styles.css */
+
+body {
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #007bff;
+    font-size: 3rem;
+    text-align: center;
+}
+
+p {
+    font-size: 1.2rem;
+    text-align: center;
+}

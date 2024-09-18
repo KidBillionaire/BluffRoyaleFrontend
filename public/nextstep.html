@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chip Spin Wheel</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wheel .slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: red;
+            border: 1px solid #ffffff;
+            transform-origin: 100% 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: white;
+            text-align: center;
+        }
+
+        /* Create the slices with different colors */
+        .slice-1 { background-color: #f00; transform: rotate(0deg); }
+        .slice-2 { background-color: #ff6347; transform: rotate(45deg); }
+        .slice-3 { background-color: #ffa500; transform: rotate(90deg); }
+        .slice-4 { background-color: #ffff00; transform: rotate(135deg); }
+        .slice-5 { background-color: #00ff00; transform: rotate(180deg); }
+        .slice-6 { background-color: #00ced1; transform: rotate(225deg); }
+        .slice-7 { background-color: #0000ff; transform: rotate(270deg); }
+        .slice-8 { background-color: #800080; transform: rotate(315deg); }
+
+        .wheel-pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 100px;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        .diamond {
+            color: #b9f2ff;
+        }
+
+        .coin {
+            color: #ffd700;
+        }
+
+        .spin-button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .spin-button:hover {
+            background-color: #ff6a6a;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wheel-container">
+        <div class="wheel" id="wheel">
+            <!-- Create 8 slices of the wheel with numbers and icons -->
+            <div class="slice slice-1">
+                <span>100 <i class="fas fa-gem diamond"></i></span>
+            </div>
+            <div class="slice slice-2">
+                <span>200 <i class="fas fa-coins coin"></i></span>
+            </div>
+            <div class="slice slice-3">
+                <span>300 <i class="fas fa-gem diamond"></i></span>
+            </div>
+            <div class="slice slice-4">
+                <span>400 <i class="fas fa-coins coin"></i></span>
+            </div>
+            <div class="slice slice-5">
+                <span>500 <i class="fas fa-gem diamond"></i></span>
+            </div>
+            <div class="slice slice-6">
+                <span>1000 <i class="fas fa-coins coin"></i></span>
+            </div>
+            <div class="slice slice-7">
+                <span>2000 <i class="fas fa-gem diamond"></i></span>
+            </div>
+            <div class="slice slice-8">
+                <span>5000 <i class="fas fa-coins coin"></i></span>
+            </div>
+
+            <!-- Wheel Pointer -->
+            <div class="wheel-pointer"></div>
+        </div>
+        <button class="spin-button" id="spinButton">Spin & Win Chips</button>
+        <div class="result" id="result">Spin the wheel to determine your chips!</div>
+    </div>
+
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script>
+        const spinButton = document.getElementById('spinButton');
+        const wheel = document.getElementById('wheel');
+        const result = document.getElementById('result');
+        const chipValues = [100, 200, 300, 400, 500, 1000, 2000, 5000];
+
+        spinButton.addEventListener('click', () => {
+            // Random degree between 500 and 5000 to make the wheel spin multiple times
+            let randomDegree = Math.floor(Math.random() * 4000) + 500;
+
+            // Spin the wheel
+            wheel.style.transition = 'transform 4s ease-out';
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            // Calculate which slice it lands on (360 degrees / 8 slices = 45 degrees per slice)
+            let sliceIndex = Math.floor((randomDegree % 360) / 45);
+
+            // Show the result after the spin finishes (after 4s)
+            setTimeout(() => {
+                result.textContent = `Congratulations! You won ${chipValues[7 - sliceIndex]} chips!`;
+            }, 4000);
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

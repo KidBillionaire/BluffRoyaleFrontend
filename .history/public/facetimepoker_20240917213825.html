@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FaceTime Poker</title>
+  
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    video {
+      width: 300px;
+      height: 200px;
+      background-color: #444;
+      border: 2px solid white;
+      margin: 10px;
+    }
+
+    .control-buttons {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="my-4">Start Your FaceTime Poker Game!</h1>
+
+    <div id="videos" class="d-flex">
+      <!-- Video streams for the users -->
+      <video id="localVideo" autoplay playsinline muted></video>
+      <video id="remoteVideo" autoplay playsinline></video>
+    </div>
+
+    <div class="control-buttons">
+      <input type="text" id="peerIdInput" placeholder="Enter friend's ID" class="form-control mb-2">
+      <button id="startCallBtn" class="btn btn-primary">Start Call</button>
+    </div>
+  </div>
+
+  <!-- Include PeerJS library -->
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  
+  <script>
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+    const startCallBtn = document.getElementById('startCallBtn');
+    const peerIdInput = document.getElementById('peerIdInput');
+
+    // Create a new peer with a randomly generated ID
+    const peer = new Peer();
+
+    // Get the local media (video/audio) stream
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        // Display local stream in the video element
+        localVideo.srcObject = stream;
+
+        // Answer incoming calls with the local stream
+        peer.on('call', call => {
+          call.answer(stream); // Answer the call with our stream
+          call.on('stream', remoteStream => {
+            remoteVideo.srcObject = remoteStream; // Show remote stream in the remote video element
+          });
+        });
+
+        // Handle the Start Call button click
+        startCallBtn.addEventListener('click', () => {
+          const peerId = peerIdInput.value;
+          if (peerId) {
+            // Make a call to the remote peer
+            const call = peer.call(peerId, stream);
+
+            // When the remote stream is received, show it in the remote video element
+            call.on('stream', remoteStream => {
+              remoteVideo.srcObject = remoteStream;
+            });
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error accessing media devices.', error);
+      });
+
+    // Log the user's own peer ID
+    peer.on('open', id => {
+      console.log('My peer ID is: ' + id);
+      alert(`Your ID: ${id}. Share it with a friend to start the call.`);
+    });
+  </script>
+</body>
+</html>
